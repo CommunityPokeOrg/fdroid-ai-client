@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.FdroidAi" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/navy_900</item>
+        <item name="android:statusBarColor">@color/navy_900</item>
+    </style>
+
+    <style name="Theme.FdroidAi.Splash" parent="Theme.SplashScreen.IconBackground">
+        <item name="windowSplashScreenBackground">@color/navy_900</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/otter_splash</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/navy_900</item>
+        <item name="postSplashScreenTheme">@style/Theme.FdroidAi</item>
+    </style>
+</resources>
