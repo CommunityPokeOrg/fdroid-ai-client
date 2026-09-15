@@ -18,9 +18,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.Code
 import androidx.compose.material.icons.filled.Language
-import androidx.compose.material.icons.filled.OpenInNew
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -132,7 +132,7 @@ private fun AppDetailContent(app: FdroidApp) {
 
         Spacer(Modifier.height(16.dp))
         Button(onClick = { openUrl(app.webUrl) }, modifier = Modifier.fillMaxWidth()) {
-            Icon(Icons.Filled.OpenInNew, contentDescription = null)
+            Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null)
             Spacer(Modifier.width(8.dp))
             Text("View on F-Droid")
         }

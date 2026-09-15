@@ -8,6 +8,7 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
 import org.communitypoke.fdroidai.data.model.FdroidApp
 import org.communitypoke.fdroidai.data.model.IndexV2
 import org.communitypoke.fdroidai.data.model.RepoMetadata

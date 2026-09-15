@@ -71,7 +71,11 @@ class SearchViewModel(
     }
 
     fun submit() {
-        if (_state.value.aiMode) runAiSearch() else runLocalSearch(_state.value.query)
+        if (_state.value.aiMode) {
+            runAiSearch()
+        } else {
+            viewModelScope.launch { runLocalSearch(_state.value.query) }
+        }
     }
 
     private suspend fun runLocalSearch(query: String) {

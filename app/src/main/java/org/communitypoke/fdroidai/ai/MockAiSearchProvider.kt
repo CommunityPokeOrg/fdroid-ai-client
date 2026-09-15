@@ -24,6 +24,13 @@ class MockAiSearchProvider : AiSearchProvider {
             .filter { it.score >= MIN_SCORE }
             .sortedByDescending { it.score }
             .take(request.limit)
+            .map { scored ->
+                AiRankedApp(
+                    app = scored.app,
+                    score = scored.score,
+                    reason = scored.reasons.joinToString("; "),
+                )
+            }
             .toList()
         return AiSearchResponse(
             results = ranked,
@@ -54,10 +61,7 @@ class MockAiSearchProvider : AiSearchProvider {
         }
     }
 
-    internal data class Scored(val app: FdroidApp, val score: Float, val reasons: List<String>) :
-        Comparable<Scored> {
-        override fun compareTo(other: Scored) = other.score.compareTo(score)
-    }
+    internal data class Scored(val app: FdroidApp, val score: Float, val reasons: List<String>)
 
     private fun rank(app: FdroidApp, intent: QueryIntent): Scored {
         val name = app.name.lowercase()
