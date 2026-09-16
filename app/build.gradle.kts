@@ -30,9 +30,43 @@ android {
             .orElse("gpt-4o-mini")
             .get()
 
+        // Claude Code SDK backend (Anthropic Messages API).
+        val claudeApiKey = providers.gradleProperty("CLAUDE_API_KEY")
+            .orElse(providers.environmentVariable("CLAUDE_API_KEY"))
+            .orElse("")
+            .get()
+        val claudeBaseUrl = providers.gradleProperty("CLAUDE_BASE_URL")
+            .orElse(providers.environmentVariable("CLAUDE_BASE_URL"))
+            .orElse("https://api.anthropic.com")
+            .get()
+        val claudeModel = providers.gradleProperty("CLAUDE_MODEL")
+            .orElse(providers.environmentVariable("CLAUDE_MODEL"))
+            .orElse("claude-sonnet-4-20250514")
+            .get()
+
+        // Codex SDK backend (OpenAI Responses API).
+        val codexApiKey = providers.gradleProperty("CODEX_API_KEY")
+            .orElse(providers.environmentVariable("CODEX_API_KEY"))
+            .orElse("")
+            .get()
+        val codexBaseUrl = providers.gradleProperty("CODEX_BASE_URL")
+            .orElse(providers.environmentVariable("CODEX_BASE_URL"))
+            .orElse("https://api.openai.com/v1")
+            .get()
+        val codexModel = providers.gradleProperty("CODEX_MODEL")
+            .orElse(providers.environmentVariable("CODEX_MODEL"))
+            .orElse("gpt-5-codex")
+            .get()
+
         buildConfigField("String", "AI_API_KEY", "\"$aiApiKey\"")
         buildConfigField("String", "AI_BASE_URL", "\"$aiBaseUrl\"")
         buildConfigField("String", "AI_MODEL", "\"$aiModel\"")
+        buildConfigField("String", "CLAUDE_API_KEY", "\"$claudeApiKey\"")
+        buildConfigField("String", "CLAUDE_BASE_URL", "\"$claudeBaseUrl\"")
+        buildConfigField("String", "CLAUDE_MODEL", "\"$claudeModel\"")
+        buildConfigField("String", "CODEX_API_KEY", "\"$codexApiKey\"")
+        buildConfigField("String", "CODEX_BASE_URL", "\"$codexBaseUrl\"")
+        buildConfigField("String", "CODEX_MODEL", "\"$codexModel\"")
     }
 
     buildTypes {
@@ -92,4 +126,5 @@ dependencies {
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
 }
