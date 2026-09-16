@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Apps
 import androidx.compose.material.icons.filled.Category
+import androidx.compose.material.icons.filled.Code
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
@@ -27,6 +28,9 @@ import org.communitypoke.fdroidai.ui.categories.CategoriesScreen
 import org.communitypoke.fdroidai.ui.detail.AppDetailScreen
 import org.communitypoke.fdroidai.ui.home.HomeScreen
 import org.communitypoke.fdroidai.ui.repo.RepoInfoScreen
+import org.communitypoke.fdroidai.ui.scripts.ScriptBrowserScreen
+import org.communitypoke.fdroidai.ui.scripts.UserscriptEditorScreen
+import org.communitypoke.fdroidai.ui.scripts.UserscriptsScreen
 import org.communitypoke.fdroidai.ui.search.SearchScreen
 import org.communitypoke.fdroidai.ui.splash.SplashScreen
 
@@ -35,8 +39,11 @@ object Routes {
     const val BROWSE = "browse"
     const val CATEGORIES = "categories"
     const val SEARCH = "search"
+    const val SCRIPTS = "scripts"
     const val REPO = "repo"
     const val DETAIL = "app/{packageName}"
+    const val SCRIPT_EDITOR = "scriptEditor"
+    const val SCRIPT_BROWSER = "scriptBrowser"
 
     fun detail(packageName: String) = "app/$packageName"
 }
@@ -51,6 +58,7 @@ private val topLevelDestinations = listOf(
     TopLevelDestination(Routes.BROWSE, "Browse", Icons.Filled.Apps),
     TopLevelDestination(Routes.CATEGORIES, "Categories", Icons.Filled.Category),
     TopLevelDestination(Routes.SEARCH, "Search", Icons.Filled.Search),
+    TopLevelDestination(Routes.SCRIPTS, "Scripts", Icons.Filled.Code),
     TopLevelDestination(Routes.REPO, "Repo", Icons.Filled.Info),
 )
 
@@ -123,6 +131,25 @@ fun FdroidNavHost(container: AppContainer) {
                 SearchScreen(
                     container = container,
                     onAppClick = { navController.navigate(Routes.detail(it)) },
+                )
+            }
+            composable(Routes.SCRIPTS) {
+                UserscriptsScreen(
+                    container = container,
+                    onNewScript = { navController.navigate(Routes.SCRIPT_EDITOR) },
+                    onOpenBrowser = { navController.navigate(Routes.SCRIPT_BROWSER) },
+                )
+            }
+            composable(Routes.SCRIPT_EDITOR) {
+                UserscriptEditorScreen(
+                    container = container,
+                    onBack = { navController.popBackStack() },
+                )
+            }
+            composable(Routes.SCRIPT_BROWSER) {
+                ScriptBrowserScreen(
+                    container = container,
+                    onBack = { navController.popBackStack() },
                 )
             }
             composable(Routes.REPO) {
